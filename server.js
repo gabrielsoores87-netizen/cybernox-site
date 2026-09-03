@@ -115,7 +115,7 @@ function createSession(response, user) {
 }
 
 function serveStatic(request, response) {
-  const requested = request.url === '/' ? '/index.html' : request.url.split('?')[0];
+  const requested = new URL(request.url, 'http://localhost').pathname === '/' ? '/index.html' : new URL(request.url, 'http://localhost').pathname;
   const filePath = path.resolve(ROOT, `.${requested}`);
   if (!filePath.startsWith(ROOT) || !fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
     response.writeHead(404); return response.end('Not found');
