@@ -122,6 +122,10 @@ function serveStatic(request, response) {
   }
   const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8' };
   response.writeHead(200, { 'Content-Type': types[path.extname(filePath)] || 'application/octet-stream' });
+  if (path.extname(filePath) === '.html') {
+    const html = fs.readFileSync(filePath, 'utf8').replace('</head>', '  <link rel="stylesheet" href="redesign.css">\n</head>');
+    return response.end(html);
+  }
   fs.createReadStream(filePath).pipe(response);
 }
 
