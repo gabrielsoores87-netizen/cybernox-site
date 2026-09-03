@@ -136,4 +136,4 @@ const server = http.createServer(async (request, response) => {
   }
 });
 
-server.listen(PORT, () => console.log(`CyberNox online em http://localhost:${PORT}`));
+server.listen(PORT, '0.0.0.0', () => console.log(`CyberNox online em http://0.0.0.0:${PORT}`));
